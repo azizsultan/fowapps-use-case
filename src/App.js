@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch("https://reqres.in/api/users")
+      .then(res => res.json())
+      .then(
+        result => {
+          const { data } = result;
+          setUsers(data);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }, []);
+
+  console.log(users);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <div className="row">
+          {users.map(({ first_name, last_name, avatar, email }) => (
+            <div class="col-4 col-xs-12" style={{ width: "18rem" }}>
+              <img class="card-img-top" src={avatar} alt="Card image cap" />
+              <div class="card-body">
+                <h5 class="card-title">
+                  {first_name} {last_name}
+                </h5>
+                <p class="card-text">{email}</p>
+                <button href="#" class="btn btn-primary">
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 
