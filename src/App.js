@@ -1,8 +1,12 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import { Button, PopUp } from "./componentLib";
 
 function App() {
   const [users, setUsers] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const hidePopUp = () => setShowPopup(false);
+
   useEffect(() => {
     fetch("https://reqres.in/api/users")
       .then(res => res.json())
@@ -17,22 +21,28 @@ function App() {
       );
   }, []);
 
-  console.log(users);
   return (
     <>
+      <PopUp
+        showPopup={showPopup}
+        onClose={hidePopUp}
+        OnOk={hidePopUp}
+        okText="Yes"
+        closeText="Dismiss"
+      />
       <div className="container">
         <div className="row">
           {users.map(({ first_name, last_name, avatar, email }) => (
-            <div class="col-4 col-xs-12" style={{ width: "18rem" }}>
-              <img class="card-img-top" src={avatar} alt="Card image cap" />
+            <div class="col-md-4 col-sm-12" style={{ width: "18rem" }}>
+              <img class="card-img-top" src={avatar} alt="" />
               <div class="card-body">
                 <h5 class="card-title">
                   {first_name} {last_name}
                 </h5>
                 <p class="card-text">{email}</p>
-                <button href="#" class="btn btn-primary">
+                <Button onClick={() => setShowPopup(true)} primary>
                   Delete
-                </button>
+                </Button>
               </div>
             </div>
           ))}
