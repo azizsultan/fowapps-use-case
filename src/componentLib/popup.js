@@ -1,14 +1,14 @@
-import { Modal } from "react-bootstrap";
-import { DeleteButton } from "./button";
+import {Modal} from 'react-bootstrap';
+import {DeleteButton} from './button';
 
 export const PopUp = ({
   showPopup,
   onClose,
   OnOk,
-  Heading = "Confirmation",
-  okText = "Ok",
-  closeText = "Close",
-  message = "Are you sure?"
+  Heading = 'Confirmation',
+  okText = 'Ok',
+  closeText = 'Close',
+  message = 'Are you sure?',
 }) => {
   return (
     <>
