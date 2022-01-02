@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import { Button } from "./button";
+import { DeleteButton } from "./button";
 
 export const PopUp = ({
   showPopup,
@@ -18,10 +18,10 @@ export const PopUp = ({
         </Modal.Header>
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
-          <Button onClick={onClose}>{closeText}</Button>
-          <Button onClick={OnOk} primary>
+          <DeleteButton onClick={onClose}>{closeText}</DeleteButton>
+          <DeleteButton onClick={OnOk} primary>
             {okText}
-          </Button>
+          </DeleteButton>
         </Modal.Footer>
       </Modal>
     </>

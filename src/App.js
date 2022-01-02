@@ -49,8 +49,8 @@ function App() {
         showPopup={showPopup}
         onClose={hidePopUp}
         OnOk={deleteUser}
-        okText="Yes"
-        closeText="Dismiss"
+        okText="Delete"
+        closeText="Cancel"
       />
       <div className="container">
         {users.length > 0 ? (
