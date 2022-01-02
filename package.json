@@ -45,6 +45,7 @@
   "devDependencies": {
     "eslint": "^7.11.0",
     "husky": "^7.0.4",
+    "lint-staged": "^12.1.4",
     "prettier": "^2.5.1"
   },
   "husky": {
@@ -58,5 +59,9 @@
     "trailingComma": "es5",
     "singleQuote": true,
     "jsxSingleQuote": true
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": "eslint --fix",
+    "*.+(json|css|md)": "prettier --write"
   }
 }
