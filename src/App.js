@@ -8,7 +8,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [id, setId] = useState();
+  const [selectedUser, setSelectedUser] = useState();
   const hidePopUp = () => setShowPopup(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function App() {
 
   const deleteUser = () => {
     setIsProcessing(true);
-    fetch(baseURL + '/' + id)
+    fetch(baseURL + '/' + selectedUser.id)
       .then((res) => res.json())
       .then((result) => {
         const {
@@ -42,7 +42,9 @@ function App() {
         OnOk={deleteUser}
         okText='Delete'
         closeText='Cancel'
-        message={`Do you want to delete user with id ${id}`}
+        message={`Do you want to delete user ${
+          selectedUser && selectedUser.first_name + ' ' + selectedUser.last_name
+        }?`}
       />
       <div className='container'>
         {users.length > 0 ? (
@@ -59,10 +61,10 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {users.map(({first_name, last_name, email, avatar, id}) => (
+              {users.map(({first_name, last_name, email, avatar, id}, index) => (
                 <tr>
                   <th scope='row' className='align-middle'>
-                    {id}
+                    {index + 1}
                   </th>
                   <td className='align-middle'>
                     <img
@@ -82,7 +84,8 @@ function App() {
                   <td>
                     <Button
                       onClick={() => {
-                        setId(id);
+                        const user = users.find((obj) => obj.id === id);
+                        setSelectedUser(user);
                         setShowPopup(true);
                       }}
                       primary
