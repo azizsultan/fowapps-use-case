@@ -7,27 +7,30 @@ const baseURL = 'https://reqres.in/api/users';
 function App() {
   const [users, setUsers] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [id, setId] = useState();
   const hidePopUp = () => setShowPopup(false);
 
   useEffect(() => {
     fetch(baseURL)
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         const {data} = result;
         setUsers(data);
       });
   }, []);
 
   const deleteUser = () => {
+    setIsProcessing(true);
     fetch(baseURL + '/' + id)
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         const {
           data: {id},
         } = result;
-        const updatedUsers = users.filter(user => user.id !== id);
+        const updatedUsers = users.filter((user) => user.id !== id);
         setUsers(updatedUsers);
+        setIsProcessing(false);
       });
     hidePopUp();
   };
@@ -91,7 +94,9 @@ function App() {
             </tbody>
           </table>
         ) : (
-          <p className='d-flex justify-content-center mt-5'>No Users Found</p>
+          <p className='d-flex justify-content-center mt-5'>
+            {isProcessing ? 'Processing...' : 'No Users Found'}
+          </p>
         )}
       </div>
     </>
