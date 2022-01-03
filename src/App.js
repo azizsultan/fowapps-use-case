@@ -42,6 +42,7 @@ function App() {
         OnOk={deleteUser}
         okText='Delete'
         closeText='Cancel'
+        message={`Do you want to delete user with id ${id}`}
       />
       <div className='container'>
         {users.length > 0 ? (
